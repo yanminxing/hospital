@@ -49,3 +49,4 @@ yarn dev
 git remote add origin git@github.com:yanminxing/hospital.git
 ```
 
+## 2.3 整理项目
