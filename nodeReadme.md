@@ -113,3 +113,17 @@ git remote add origin git@github.com:yanminxing/hospital.git
 yarn add sass -D
 ```
 
+3 分析布局
+
+页面分为三部分
+
+页面大小为1200，居中
+
+- 顶部
+  - 标题、用户信息
+  - 固定定位在顶部
+  - css代码：使用浮动来进行布局，需要注意的是，使用浮动之后，需要消除浮动
+- 中间
+  - 内容部分
+- 底部
+  - 

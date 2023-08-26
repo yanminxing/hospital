@@ -1,0 +1,33 @@
+/*全局背景*/
+$bg-all: #f2f3f5;
+
+/**宽度1200，放在中间*/
+.w1200-align-center {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/*背景白色*/
+.bg-white {
+  background: white;
+}
+
+/*清除浮动*/
+.clear-float {
+  &::after {
+    content: "";
+    height: 0;
+    clear: both;
+  }
+}
+
+/*单行垂直居中*/
+@mixin one-line-vertical-center($height) {
+  height: $height;
+  line-height: $height;
+}
+
+/*淡色字体*/
+.text-light {
+ color: #bbb;
+}
