@@ -95,7 +95,7 @@ git remote add origin git@github.com:yanminxing/hospital.git
 
 # 2 项目页面搭建
 
-## 2.1 项目静态与组件拆分（p4）
+## 2.1 项目静态与组件拆分（p4-5）
 
 1 图片资源（从资料 里面拿)
 
@@ -126,4 +126,83 @@ yarn add sass -D
 - 中间
   - 内容部分
 - 底部
-  - 
+  - css代码：使用浮动来进行布局，需要注意的是，使用浮动之后，需要消除浮动
+
+## 2.2 项目路由的搭建和滚动行为（p6）
+
+1 分析页面
+
+首页、挂号页面
+
+2 下载依赖
+
+```
+yarn add vue-router
+```
+
+3 创建路由
+
+1）步骤
+
+- 创建路由实例
+
+  ```typescript
+  /**
+   * @description 路由页面
+   * */
+  import {createRouter, createWebHashHistory} from 'vue-router';
+  
+  /**
+   * @description 路由实例
+   * @description createRouter--用来创建路由
+   * */
+  const router = createRouter({
+  	// 路由模式创建
+  	history: createWebHashHistory(),
+  	routes: [
+  		{
+  			path: '/home',
+  			component: () => import('@/pages/home/index.vue')
+  		},
+  		{
+  			path: '/detail',
+  			component: () => import('@/pages/detail/index.vue')
+  		},
+  		{
+  			path: '/',
+  			redirect: '/home'
+  		}
+  	],
+  	// 滚动行为控制： 控制滚动条的位置
+  	scrollBehavior() {
+  		return {
+  			left: 0,
+  			top: 0
+  		}
+  	}
+  });
+  
+  export default router;
+  ```
+
+- main.js注册路由实例
+
+- 在组件里面使用
+
+- ```vue
+  <router-view></router-view>
+  ```
+
+4 控制滚动条的行为
+
+在创建路由实例的时候，添加配置项scrollBehavior
+
+```
+scrollBehavior() {
+    return {
+        left: 0,
+        top: 0
+    }
+}
+```
+

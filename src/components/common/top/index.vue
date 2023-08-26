@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white">
+	<div class="fixed-top bg-white">
 		<div class="page-top w1200-align-center clear-float">
 			<div class="page-top-left">
 				<img class="page-top-left-icon" src="../../../assets/images/logo.png" />
@@ -19,6 +19,13 @@
 
 <style lang="scss" scoped>
 @import "@/style/common.scss";
+
+.fixed-top {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+}
 
 .page-top {
 	height: 70px;
