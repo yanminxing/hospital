@@ -93,3 +93,23 @@ git remote add origin git@github.com:yanminxing/hospital.git
 }
 ```
 
+# 2 项目页面搭建
+
+## 2.1 项目静态与组件拆分（p4）
+
+1 图片资源（从资料 里面拿)
+
+注意点：
+
+1）网页为1200px，居中
+
+2 清除默认样式
+
+1）在npm里面搜索reset.scss，并且将其复制到项目里面
+
+2）下载依赖sass
+
+```
+yarn add sass
+```
+
