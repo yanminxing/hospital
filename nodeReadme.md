@@ -59,3 +59,37 @@ git remote add origin git@github.com:yanminxing/hospital.git
  "dev": "vite --open",
 ```
 
+## 2.5 配置别名
+
+1 下载依赖
+
+ @types/node：typescript的一个声明文件包，用于描述nodejs核心模块和常用的第三方库信息。
+
+```
+ yarn add @types/node -D
+```
+
+2 配置vite.config.ts
+
+添加resolve属性
+
+```
+  // 配置别名
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, 'src')
+    }
+  }
+```
+
+3 配置tsconfig.json
+
+在compilerOptions中配置以下属性，主要是为了ide能够有智能提醒@
+
+```json
+"baseUrl": ".",
+"paths": {
+    "@/*": ["src/*"]
+}
+```
+
