@@ -3,12 +3,12 @@
 		<!--顶部组件-->
 		<TopComp />
 		<!--底部组件-->
-		<!--<CommonBottom />-->
+		<CommonBottom />
 	</div>
 </template>
 
 <script lang="ts" setup>
-// import CommonBottom from '@/components/common/bottom/index.vue';
+import CommonBottom from '@/components/common/bottom/index.vue';
 
 </script>
 
