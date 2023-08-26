@@ -50,3 +50,12 @@ git remote add origin git@github.com:yanminxing/hospital.git
 ```
 
 ## 2.3 整理项目
+
+## 2.4 浏览器自动启动配置
+
+1 在package.json中配置命令dev
+
+```
+ "dev": "vite --open",
+```
+
