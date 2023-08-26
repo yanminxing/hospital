@@ -105,11 +105,11 @@ git remote add origin git@github.com:yanminxing/hospital.git
 
 2 清除默认样式
 
-1）在npm里面搜索reset.scss，并且将其复制到项目里面
+1）在npm里面搜索[reset.scss](https://www.npmjs.com/package/scss-reset?activeTab=code)，并且将其复制到项目里面
 
 2）下载依赖sass
 
 ```
-yarn add sass
+yarn add sass -D
 ```
 
