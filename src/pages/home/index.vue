@@ -1,5 +1,7 @@
 <template>
-	<div class="page-home">首页</div>
+	<div class="page-home">
+		<el-button type="primary">鼠标</el-button>
+	</div>
 </template>
 
 <script setup lang="ts">

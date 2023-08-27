@@ -206,3 +206,45 @@ scrollBehavior() {
 }
 ```
 
+# 2.3 day1遇到的问题
+
+1 
+
+
+
+# 2.4 首页搭建静态banner（p7）
+
+1 Element Plus下载和使用
+
+- 使用命令下载
+
+```
+yarn add element-plus
+// 按需导入插件
+yarn add -D unplugin-vue-components unplugin-auto-import
+```
+
+- 配置vite.config.ts文件
+
+```typescript
+// element-plus自动导入插件
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers';
+
+// 在plugins属性里面添加如下东西
+	plugins: [
+    vue(),
+    // element-plus自动导入
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
+    })
+  ],
+```
+
+- 注意点：在引入自动导入插件之后，根目录多了两个文件：auto-imports.d.ts和components.d.ts
+
+2 
