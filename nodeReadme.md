@@ -312,8 +312,7 @@ export const getLocalFile = (pathFront: string, name: string) => {
 
 ```
 yarn add @element-plus/icons-vue
-// 自动导入插件
-yarn add unplugin-icons -D
 ```
 
-- 2）配置自动导入
+2）需要注意的是，初始化的时候，icon大小特别小，需要在组件里面设置其大小
+
