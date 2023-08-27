@@ -27,6 +27,13 @@ $bg-all: #f2f3f5;
   line-height: $height;
 }
 
+/*上下左右居中*/
+.align-center-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 /*淡色字体*/
 .text-light {
  color: #bbb;

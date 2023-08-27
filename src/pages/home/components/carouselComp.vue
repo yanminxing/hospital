@@ -1,5 +1,5 @@
 <template>
-	<div class="page-home-carousel bg-white">
+	<div class="page-home-carousel">
 		<el-carousel height="350px" arrow="always">
 			<el-carousel-item v-for="item in dataList" :key="item.value">
 				<img :src="CarouselImg" alt="暂无次图片">

@@ -306,3 +306,14 @@ export const getLocalFile = (pathFront: string, name: string) => {
 
 ```
 
+3 使用饿了么框架icon图标
+
+- 1）下载插件
+
+```
+yarn add @element-plus/icons-vue
+// 自动导入插件
+yarn add unplugin-icons -D
+```
+
+- 2）配置自动导入
