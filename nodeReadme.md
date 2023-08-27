@@ -247,4 +247,62 @@ import {ElementPlusResolver} from 'unplugin-vue-components/resolvers';
 
 - 注意点：在引入自动导入插件之后，根目录多了两个文件：auto-imports.d.ts和components.d.ts
 
-2 
+2 实现轮播图静态组件
+
+- 轮播图使用饿了么里面的组件
+- vite中图片引入方式
+  - 使用import直接引入
+  - 使用import动态引入引入
+  - 使用new URL()引入
+
+```vue
+<template>
+	<div class="page-home-carousel bg-white">
+		<el-carousel height="350px" arrow="always">
+			<el-carousel-item v-for="item in dataList" :key="item.value">
+				<img :src="CarouselImg" alt="暂无次图片">
+			</el-carousel-item>
+		</el-carousel>
+	</div>
+</template>
+
+<script setup lang="ts">
+import {ref} from 'vue';
+import CarouselImg from '@/assets/images/web-banner-1.png';
+import {getLocalFile} from '@/utils/common/file/image';
+
+// 轮播图片列表
+const dataList = ref([
+	// vite引入图片方式
+	// 1 方式1：使用import直接引入
+	{
+		name: CarouselImg,
+		value: 1
+	},
+	// 2 方式2：使用import动态引入引入
+	{
+		name: () => import('@/assets/images/web-banner-1.png'),
+		value: 2
+	},
+	// 3 方式3：使用new URL()引入
+	{
+		name: () => getLocalFile('@/assets/images','web-banner-1.png'),
+		value: 2
+	}
+]);
+</script>
+```
+
+```typescript
+/**
+ * @description 获取本地文件
+ * @param pathFront {string} 文件名之前链接
+ * @param name {string} 文件名
+ * */
+export const getLocalFile = (pathFront: string, name: string) => {
+	// 需要拼接，否则会出问题
+	return new URL(`${pathFront}/${name}`, import.meta.url).href;
+}
+
+```
+
