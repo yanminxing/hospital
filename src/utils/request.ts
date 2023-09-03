@@ -30,12 +30,13 @@ request.interceptors.request.use((config) => {
  * @description axios请求--响应拦截:两个参数--请求成功的回调、请求失败的回调
  * */
 request.interceptors.response.use((response) => {
+	// debugger
 	if (response.data.code === 200) {
 		return response.data.data;
 	}
 	return response.data;
 }, (error) => {
-	switch (error.response.status) {
+	switch (error.response?.status) {
 		case 404:
 			ElMessage.error('请求路径错误');
 			break;

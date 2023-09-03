@@ -12,45 +12,73 @@
 				<!--医院搜索条件-->
 				<SearchHospital></SearchHospital>
 				<el-row :gutter="20">
-					<el-col :span="12" v-for="item in 8" :key="item">
-						<MainContent></MainContent>
+					<el-col :span="12"
+		        v-for="(item, index) in hospitalList"
+		        :key="item.id || index"
+					>
+						<MainContent :info="item"></MainContent>
 					</el-col>
 				</el-row>
 			</el-col>
 			<el-col :span="5">2</el-col>
 		</el-row>
 		<el-pagination
-			v-model:current-page="currentPage4"
-			v-model:page-size="pageSize4"
+			v-model:current-page="page.page"
+			v-model:page-size="page.limit"
 			class="page-home-pagination"
-			:page-sizes="[100, 200, 300, 400]"
-			:small="small"
-			:disabled="disabled"
-			:background="background"
-			layout="prev, pager, next, jumper, total, sizes,"
-			:total="400"
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
+			:page-sizes="[10, 20, 50, 100]"
+			:small="true"
+			:disabled="false"
+			layout="prev, pager, next, jumper, sizes, total "
+			:total="page.total"
+			@size-change="handlePageChange(1)"
+			@current-change="handlePageChange"
 		/>
 	</div>
 </template>
 
 <script setup lang="ts">
-import {ref,onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import CarouselComp from './components/carouselComp.vue';
 import {Search} from '@element-plus/icons-vue';
 import KeySearch from '@/components/autoSearch/AutoSearch.vue';
 import SearchHospital from './components/searchHospital.vue';
 import MainContent from './components/mainContent.vue';
-import {getHospital} from '@/api/homeApi'
+import {queryHospital} from '@/api/homeApi';
+import {PageModel} from '@/pages/home/modelData';
 
 const form = ref({
 	key: ''
 });
 
+const page = ref<PageModel>({
+	page: 1,
+	limit: 10,
+	total: 0
+});
+const hospitalList = ref([]);
+
+/**
+ * @description 获取医院分页列表
+ * */
+const getHospital = async () => {
+	const res: any = await queryHospital({...page.value}) || {};
+	hospitalList.value = res?.content || [];
+	Object.assign(page.value, {
+		total: res?.totalElements || 0
+	});
+};
+
+/**
+ * @description 医院分页页面、size改变
+ * */
+const handlePageChange = async (curPage) => {
+	if (curPage) page.value.page = curPage;
+	await getHospital();
+};
+
 onMounted(async () => {
-	const res = await getHospital({limit: 10, page: 1})
-	console.log(res);
+	await getHospital();
 });
 
 </script>

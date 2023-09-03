@@ -55,13 +55,20 @@ export default defineConfig({
 	server: {
 		// 配置代理
 		proxy: {
-			'/api': {
-				// 接口的域名
+			'^/api/home': {
+				// 接口的域名（使用该域名请求时候，经常出现超时请求，因此使用ip来发起）
+				target: 'http://syt.atguigu.cn',
+				// false--请求头中host仍然是浏览器发送过来的host，true--发送请求头中host会设置成target
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api\/home/, '/api')
+			},
+			'^/api': {
+				// 接口的域名（使用该域名请求时候，经常出现超时请求，因此使用ip来发起）
 				target: 'http://syt.atguigu.cn',
 				// false--请求头中host仍然是浏览器发送过来的host，true--发送请求头中host会设置成target
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api/, '/api')
-			}
+			},
 		}
 	}
 });
