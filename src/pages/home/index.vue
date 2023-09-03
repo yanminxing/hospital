@@ -46,6 +46,7 @@ import SearchHospital from './components/searchHospital.vue';
 import MainContent from './components/mainContent.vue';
 import {queryHospital} from '@/api/homeApi';
 import {PageModel} from '@/pages/home/modelData';
+import type {Content} from '@/api/type/homoType'
 
 const form = ref({
 	key: ''
@@ -56,7 +57,7 @@ const page = ref<PageModel>({
 	limit: 10,
 	total: 0
 });
-const hospitalList = ref([]);
+const hospitalList = ref<Content[]>([]);
 
 /**
  * @description 获取医院分页列表

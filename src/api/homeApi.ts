@@ -2,6 +2,7 @@
  * 首页接口模块
  * */
 import request from '@/utils/request';
+import {HospitalResponse} from '@/api/type/homoType'
 
 enum HospitalApi {
 	// 获取医院分页列表
@@ -16,5 +17,5 @@ enum HospitalApi {
  * */
 export const queryHospital = (data) => {
 	const {limit = 10, page = 1} = data;
-	return request.get(`${HospitalApi.HOSPITAL_LIST}${page}/${limit}`);
+	return request.get<any, HospitalResponse>(`${HospitalApi.HOSPITAL_LIST}${page}/${limit}`);
 };

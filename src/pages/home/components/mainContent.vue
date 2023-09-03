@@ -35,15 +35,18 @@
 </template>
 
 <script setup lang="ts">
+import type {Content} from '@/api/type/homoType'
+import {HospitalModel} from '@/api/type/homoType';
 
-const props = defineProps({
-	info: {
-		type: Object,
-		default: () => {}
+interface PropsModel {
+	info?: HospitalModel
+}
+
+const props = withDefaults(defineProps<PropsModel>(), {
+	info: () => {
+		return {}
 	}
 })
-
-console.log(props);
 
 </script>
 
