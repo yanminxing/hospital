@@ -36,18 +36,22 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import {ref,onMounted} from 'vue';
 import CarouselComp from './components/carouselComp.vue';
 import {Search} from '@element-plus/icons-vue';
 import KeySearch from '@/components/autoSearch/AutoSearch.vue';
 import SearchHospital from './components/searchHospital.vue';
 import MainContent from './components/mainContent.vue';
+import {getHospital} from '@/api/homeApi'
 
 const form = ref({
 	key: ''
 });
 
-console.log(getComputedStyle(window.document.documentElement)['fontSize']);
+onMounted(async () => {
+	const res = await getHospital({limit: 10, page: 1})
+	console.log(res);
+});
 
 </script>
 

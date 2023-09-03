@@ -324,15 +324,86 @@ yarn add @element-plus/icons-vue
 yarn add axios
 ```
 
-2 对axios进行二次封装
+2 对axios进行二次封装目的
 
-- 1）目的
+- 利用axios自带的请求和拦截器功能
 
-  - 利用axios自带的请求和拦截器功能
+- 请求携带：在请求头里面携带公共参数，如token
 
-  - 请求携带：在请求头里面携带公共参数，如token
+- 相应拦截：简化服务返回的数据，处理http的网络错误。
 
-  - 相应拦截：简化服务返回的数据，处理http的网络错误。
+  
 
-    
+3 配置代理
+
+在文件vite.config.ts中配置，用来实现跨域
+
+```typescript
+	server: {
+		// 配置代理
+		proxy: {
+			'/api': {
+				// 接口的域名
+				target: 'http://syt.atguigu.cn',
+				// false--请求头中host仍然是浏览器发送过来的host，true--发送请求头中host会设置成target
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, '/api')
+			}
+		}
+	}
+```
+
+4 简单封装axios
+
+文件：src/utils/request.ts
+
+```typescript
+import axios from 'axios';
+import {ElMessage} from 'element-plus';
+
+
+/**
+ * @description 创建axios请求，并且配置一些参数
+ * */
+const request = axios.create({
+	// 基础请求的路径，每一个请求都会携带
+	baseURL: '/api',
+	// 超时时间，超过时间，就是请求失败
+	timeout: 5000
+});
+
+/**
+ * @description axios请求--请求拦截
+ * */
+request.interceptors.request.use((config) => {
+	// 需要返回该配置对象，否则，无法发起请求
+	return config;
+});
+
+/**
+ * @description axios请求--响应拦截:两个参数--请求成功的回调、请求失败的回调
+ * */
+request.interceptors.response.use((response) => {
+	if (response.data.code === 200) {
+		return response.data.data;
+	}
+	return response.data;
+}, (error) => {
+	switch (error.response.status) {
+		case 404:
+			ElMessage.error('请求路径错误');
+			break;
+		case 500 | 501 | 503:
+			ElMessage.error('服务器错误');
+			break;
+		default:
+			break;
+	}
+	return Promise.reject(new TypeError(error));
+});
+
+export default request;
+```
+
+
 
