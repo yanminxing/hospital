@@ -10,14 +10,17 @@
 		<el-row :gutter="20" class="content">
 			<el-col :span="19">
 				<!--医院搜索条件-->
-				<SearchHospital></SearchHospital>
+				<SearchHospital @searchChange="searchChange"></SearchHospital>
 				<el-row :gutter="20">
-					<el-col :span="12"
-		        v-for="(item, index) in hospitalList"
-		        :key="item.id || index"
-					>
-						<MainContent :info="item"></MainContent>
-					</el-col>
+					<template v-if="hospitalList.length">
+						<el-col :span="12"
+			        v-for="(item, index) in hospitalList"
+			        :key="item.id || index"
+						>
+							<MainContent :info="item"></MainContent>
+						</el-col>
+					</template>
+					<el-empty v-else></el-empty>
 				</el-row>
 			</el-col>
 			<el-col :span="5">2</el-col>
@@ -46,10 +49,11 @@ import SearchHospital from './components/searchHospital.vue';
 import MainContent from './components/mainContent.vue';
 import {queryHospital} from '@/api/homeApi';
 import {PageModel} from '@/pages/home/modelData';
-import type {Content} from '@/api/type/homoType'
+import type {Content, HospitalRequest} from '@/api/type/homoType';
 
-const form = ref({
-	key: ''
+const form = ref<HospitalRequest>({
+	hostype: '',
+	districtCode: ''
 });
 
 const page = ref<PageModel>({
@@ -63,11 +67,19 @@ const hospitalList = ref<Content[]>([]);
  * @description 获取医院分页列表
  * */
 const getHospital = async () => {
-	const res: any = await queryHospital({...page.value}) || {};
+	const res: any = await queryHospital({...page.value, ...form.value}) || {};
 	hospitalList.value = res?.content || [];
 	Object.assign(page.value, {
 		total: res?.totalElements || 0
 	});
+};
+
+/**
+ * @description 搜索条件发生变化
+ * */
+const searchChange = async (searchForm) => {
+	Object.assign(form.value, searchForm);
+	await getHospital();
 };
 
 /**

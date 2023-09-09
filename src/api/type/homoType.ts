@@ -52,3 +52,84 @@ export interface HospitalResponse  {
 		number?: number;
 		empty?: boolean;
 }
+
+
+/**
+ * @description 医院列表参数
+ * */
+export interface HospitalRequest {
+	/**
+	 * 市code
+	 */
+	cityCode?: string;
+	/**
+	 * 区code
+	 */
+	districtCode?: string;
+	/**
+	 * 医院编号
+	 */
+	hoscode?: string;
+	/**
+	 * 医院名称
+	 */
+	hosname?: string;
+	/**
+	 * 医院类型
+	 */
+	hostype?: string;
+	/**
+	 * 省code
+	 */
+	provinceCode?: string;
+	/**
+	 * 状态
+	 */
+	status?: number;
+}
+
+/**
+ * @description Dict，数据字典
+ * */
+export interface DictModel {
+	/**
+	 * 创建时间
+	 */
+	createTime?: Date;
+	/**
+	 * 编码
+	 */
+	dictCode?: string;
+	/**
+	 * 是否包含子节点
+	 */
+	hasChildren?: boolean;
+	/**
+	 * id
+	 */
+	id?: number;
+	/**
+	 * 逻辑删除(1:已删除，0:未删除)
+	 */
+	isDeleted?: number;
+	/**
+	 * 名称
+	 */
+	name?: string;
+	/**
+	 * 其他参数
+	 */
+	params?:{[key:string]: any};
+	/**
+	 * 上级id
+	 */
+	parentId?: number;
+	/**
+	 * 更新时间
+	 */
+	updateTime?: Date;
+	/**
+	 * 值
+	 */
+	value?: string;
+}

@@ -2,11 +2,12 @@
  * 首页接口模块
  * */
 import request from '@/utils/request';
-import {HospitalResponse} from '@/api/type/homoType'
+import {DictModel, HospitalResponse} from '@/api/type/homoType';
 
 enum HospitalApi {
 	// 获取医院分页列表
-	HOSPITAL_LIST = '/home/hosp/hospital/'
+	HOSPITAL_LIST = '/home/hosp/hospital/',
+	FIND_BY_DICT_CODE = '/home/cmn/dict/findByDictCode/',
 }
 
 /**
@@ -15,7 +16,20 @@ enum HospitalApi {
  *   接口ID：107741435
  *   接口地址：https://app.apifox.com/link/project/3239132/apis/api-107741435
  * */
-export const queryHospital = (data) => {
-	const {limit = 10, page = 1} = data;
-	return request.get<any, HospitalResponse>(`${HospitalApi.HOSPITAL_LIST}${page}/${limit}`);
+export const queryHospital = (_data) => {
+	const {limit = 10, page = 1, hostype,districtCode } = _data;
+	return request.get<any, HospitalResponse>(
+		 `${HospitalApi.HOSPITAL_LIST}${page}/${limit}?districtCode=${districtCode}&hostype=${hostype}`,
+	);
+};
+
+/**
+ * @description 根据dictCode获取下级节点
+ *   GET /api/cmn/dict/findByDictCode/{dictCode}
+ *   接口ID：109397070
+ *   接口地址：https://app.apifox.com/link/project/3239132/apis/api-109397070
+ * */
+export const reqDictCode = (data) => {
+	const {dictCode} = data;
+	return request.get<any, DictModel[]>(`${HospitalApi.FIND_BY_DICT_CODE}${dictCode}`);
 };
