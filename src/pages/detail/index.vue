@@ -12,26 +12,41 @@
 						<el-icon>
 							<component :is="item.icon"></component>
 						</el-icon>
-						<span>{{item.name}}</span>
+						<span>{{ item.name }}</span>
 					</el-menu-item>
 				</template>
 			</el-menu>
 		</div>
-		<div >
+		<div>
 			<router-view/>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
-import {useRouter} from 'vue-router';
-import {menuList} from './mockData'
+import {onMounted, ref} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+import {useHospitalStore} from '@/store';
+import {reqHospitalDetail} from '@/api/detail/detailApi';
+import {menuList} from './mockData';
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute();
+const store = useHospitalStore();
 const currentRoute = router.currentRoute.value;
 
 const activeMenu = ref(currentRoute.path || '/detail/appointment');
+
+const initPage =async () => {
+	if(!route.query?.hoscode) return
+	const res = await reqHospitalDetail(route.query.hoscode)
+	// 将医院详情存在在store仓库里面
+	store.SET_HOSPITAL_DETAIL(res)
+};
+
+onMounted(async () => {
+	await initPage();
+});
 
 </script>
 
@@ -40,8 +55,8 @@ const activeMenu = ref(currentRoute.path || '/detail/appointment');
 
 .detail {
 	display: flex;
-	min-height: 100%;
 	background: white;
+
 	&-left {
 		width: 200px;
 	}
