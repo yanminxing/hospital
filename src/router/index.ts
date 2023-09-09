@@ -17,7 +17,30 @@ const router = createRouter({
 		},
 		{
 			path: '/detail',
-			component: () => import('@/pages/detail/index.vue')
+			component: () => import('@/pages/detail/index.vue'),
+			redirect: '/detail/appointment',
+			children:[
+				{
+					path: '/detail/appointment',
+					component: () => import('@/pages/detail/appointment/index.vue')
+				},
+				{
+					path: '/detail/detail',
+					component: () => import('@/pages/detail/detail/index.vue')
+				},
+				{
+					path: '/detail/notify',
+					component: () => import('@/pages/detail/notify/index.vue')
+				},
+				{
+					path: '/detail/info',
+					component: () => import('@/pages/detail/info/index.vue')
+				},
+				{
+					path: '/detail/search',
+					component: () => import('@/pages/detail/search/index.vue')
+				},
+			]
 		},
 		{
 			path: '/',
