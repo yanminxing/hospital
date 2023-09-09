@@ -21,22 +21,27 @@ const router = createRouter({
 			redirect: '/detail/appointment',
 			children:[
 				{
+					name: '预约挂号',
 					path: '/detail/appointment',
 					component: () => import('@/pages/detail/appointment/index.vue')
 				},
 				{
+					name: '医院详情',
 					path: '/detail/detail',
 					component: () => import('@/pages/detail/detail/index.vue')
 				},
 				{
+					name: '预约通知',
 					path: '/detail/notify',
 					component: () => import('@/pages/detail/notify/index.vue')
 				},
 				{
+					name: '停诊信息',
 					path: '/detail/info',
 					component: () => import('@/pages/detail/info/index.vue')
 				},
 				{
+					name: '查询/取消',
 					path: '/detail/search',
 					component: () => import('@/pages/detail/search/index.vue')
 				},
