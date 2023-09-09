@@ -1,5 +1,5 @@
 <template>
-	<el-card class="page-home-content">
+	<el-card class="page-home-content" @click="goToDetail">
 		<div class="page-home-content-left">
 			<div>{{info?.hosname}}</div>
 			<div class="page-home-content-left-info">
@@ -37,16 +37,28 @@
 <script setup lang="ts">
 import type {Content} from '@/api/type/homoType'
 import {HospitalModel} from '@/api/type/homoType';
+import {useRouter } from 'vue-router'
 
 interface PropsModel {
 	info?: HospitalModel
 }
+
+const router = useRouter()
 
 const props = withDefaults(defineProps<PropsModel>(), {
 	info: () => {
 		return {}
 	}
 })
+
+function goToDetail() {
+	router.push({
+		path: '/detail',
+		query: {
+			hoscode: props.info?.hoscode
+		}
+	})
+}
 
 </script>
 

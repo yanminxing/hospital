@@ -3,6 +3,7 @@
 	<el-autocomplete
 		v-model="keyWord"
 		v-bind="props"
+		:trigger-on-focus="false"
 		:fetch-suggestions="querySearch"
 		:clearable="clearable"
 		class="inline-input w-full"
@@ -13,7 +14,10 @@
 
 <script setup lang="ts">
 import {ref, onMounted,withDefaults} from 'vue';
+import {useRouter} from 'vue-router';
+import {reqHospital} from '@/api/homeApi';
 
+const router = useRouter();
 const props = defineProps({
 	/**
 	 * 占位符
@@ -39,43 +43,30 @@ const props = defineProps({
 })
 
 const keyWord = ref(props.defaultValue);
-const restaurants = ref([]);
 
-const querySearch = (queryString: string, cb: any) => {
-	const results = queryString
-		? restaurants.value.filter(createFilter(queryString))
-		: restaurants.value;
-	// call callback function to return suggestions
-	cb(results);
+const querySearch =async (value: string, cb: any) => {
+	const res = await reqHospital(value) || []
+	const list = res.map((item: object) => {
+		return {
+			value: item.hosname,
+			hoscode: item.hoscode,
+		}
+	})
+	cb(list);
 };
 
-const createFilter = (queryString: string) => {
-	return (restaurant) => {
-		return (
-			restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-		);
-	};
-};
 
 const handleSelect = (item) => {
-	console.log(item);
+	router.push({
+		path: '/detail',
+		query: {
+			hoscode: item.hoscode
+		}
+	})
 };
-
-const loadAll = () => {
-	return [
-		{ value: 'vue', link: 'https://github.com/vuejs/vue' },
-		{ value: 'element', link: 'https://github.com/ElemeFE/element' },
-		{ value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
-		{ value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
-		{ value: 'vuex', link: 'https://github.com/vuejs/vuex' },
-		{ value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
-		{ value: 'babel', link: 'https://github.com/babel/babel' },
-	]
-}
 
 
 onMounted(() => {
-	restaurants.value = loadAll();
 });
 </script>
 

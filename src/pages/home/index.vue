@@ -4,7 +4,7 @@
 		<CarouselComp/>
 		<!--搜索组件-->
 		<div class="page-home-search align-center-center">
-			<KeySearch style="width: 600px" placeholder="请输入医院" defaultValue="有值"/>
+			<KeySearch style="width: 600px" placeholder="请输入医院" defaultValue=""/>
 			<el-button type="primary" :icon="Search">搜 索</el-button>
 		</div>
 		<el-row :gutter="20" class="content">
