@@ -28,6 +28,7 @@ import {onMounted, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {useHospitalStore} from '@/store';
 import {reqHospitalDetail} from '@/api/detail/detailApi';
+import {DetailResponseType} from '@/api/detail/detailType';
 import {menuList} from './mockData';
 
 const router = useRouter();
@@ -39,7 +40,7 @@ const activeMenu = ref(currentRoute.path || '/detail/appointment');
 
 const initPage =async () => {
 	if(!route.query?.hoscode) return
-	const res = await reqHospitalDetail(route.query.hoscode)
+	const res:DetailResponseType = await reqHospitalDetail(route.query.hoscode)
 	// 将医院详情存在在store仓库里面
 	store.SET_HOSPITAL_DETAIL(res)
 };
